@@ -4,7 +4,6 @@ namespace ClinicaVeterinaria.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("Animale")]
     public partial class Animale
@@ -27,7 +26,7 @@ namespace ClinicaVeterinaria.Models
 
         [Required(ErrorMessage = "Il nome e' obbligatorio")]
         [StringLength(50, ErrorMessage = "Il nome non deve essere piu' lungo di 50 caratteri")]
-        
+
         public string Nome { get; set; }
 
         [Required]
@@ -44,10 +43,9 @@ namespace ClinicaVeterinaria.Models
         [DataType(DataType.Date)]
         public DateTime DataNascita { get; set; }
 
-        [StringLength(15, MinimumLength = 15 , ErrorMessage = "Il microchip deve contenere 15 caratteri")]
+        [StringLength(15, MinimumLength = 15, ErrorMessage = "Il microchip deve contenere 15 caratteri")]
         public string Microchip { get; set; }
 
-        [Required]
         [StringLength(200, ErrorMessage = "Il nome del proprietario non deve essere piu' lungo di 200 caratteri")]
         [Display(Name = "Proprietario")]
         public string Propietario { get; set; } = "Rifugio";

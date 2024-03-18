@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using ClinicaVeterinaria.Models;
+using Microsoft.Ajax.Utilities;
+using System;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ClinicaVeterinaria.Models;
-using Microsoft.Ajax.Utilities;
 
 namespace ClinicaVeterinaria.Controllers
 {
@@ -65,11 +61,20 @@ namespace ClinicaVeterinaria.Controllers
                 {
                     animale.Foto = "AnimaleDefault.jpg";
                 }
+                if (animale.Propietario.IsNullOrWhiteSpace())
+                {
+                    animale.Propietario = "rifugio";
+                }
                 if (animale.DataNascita < DateTime.Now)
                 {
                     TempData["success"] = $"{animale.Nome} aggiunto con successo";
                     db.Animale.Add(animale);
                     db.SaveChanges();
+                    if (animale.Propietario == "rifugio")
+                    {
+
+                        return RedirectToAction("Create", "Ricovero", new { id = animale.IdAnimale });
+                    }
                     return RedirectToAction("Index");
                 }
                 else

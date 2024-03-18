@@ -10,6 +10,7 @@
 {
     @Html.AntiForgeryToken()
     
+    //ricorda la psw è nome + cognome
     <div class="form-horizontal">
         <h4>Dipendenti</h4>
         <hr />
@@ -43,14 +44,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Psw, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Psw, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Psw, "", new { @class = "text-danger" })
             </div>
         </div>
 

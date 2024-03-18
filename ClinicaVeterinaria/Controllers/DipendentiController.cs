@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ClinicaVeterinaria.Models;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
-using ClinicaVeterinaria.Models;
 
 namespace ClinicaVeterinaria.Controllers
 {
@@ -51,10 +46,11 @@ namespace ClinicaVeterinaria.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdDipendente,Ruolo,Nome,Cognome,Username,Psw")] Dipendenti dipendenti)
         {
+            dipendenti.Psw = dipendenti.Nome + dipendenti.Cognome;
             dipendenti.Psw = Password.HashPassword(dipendenti.Psw);
             if (ModelState.IsValid)
             {
-                
+
                 db.Dipendenti.Add(dipendenti);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -70,12 +66,12 @@ namespace ClinicaVeterinaria.Controllers
         [HttpPost]
         public ActionResult Login(string username, string psw)
         {
-            
+
             if (ModelState.IsValid)
             {
-                
+
                 var dip = db.Dipendenti.Where(d => d.Username == username).SingleOrDefault();
-                
+
                 if (dip != null)
                 {
                     var checkPsw = Password.VerifyPassword(psw, dip.Psw);
@@ -88,12 +84,12 @@ namespace ClinicaVeterinaria.Controllers
                         FormsAuthentication.SetAuthCookie(username, false);
                         return RedirectToAction("Index", "Home");
                     }
-                    
-                    
+
+
                 }
                 else
                 {
-                    TempData["error"] =  "Username o password errati";
+                    TempData["error"] = "Username o password errati";
                 }
             }
             return View();
@@ -107,7 +103,7 @@ namespace ClinicaVeterinaria.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+
 
         // GET: Dipendenti/Delete/5
         public ActionResult Delete(int? id)
