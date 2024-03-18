@@ -25,16 +25,18 @@ namespace ClinicaVeterinaria.Models
         [DataType(DataType.Date)]
         public DateTime DataRegistrazione { get; set; } = DateTime.Now;
 
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "Il nome e' obbligatorio")]
+        [StringLength(50, ErrorMessage = "Il nome non deve essere piu' lungo di 50 caratteri")]
+        
         public string Nome { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Il tipo non deve essere piu' lungo di 50 caratteri")]
+        //non ho usato l'enum perche' non so come fare a farlo funzionare
         public string Tipo { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Il colore non deve essere piu' lungo di 50 caratteri")]
         public string Colore { get; set; }
 
         [Column(TypeName = "date")]
@@ -42,11 +44,11 @@ namespace ClinicaVeterinaria.Models
         [DataType(DataType.Date)]
         public DateTime DataNascita { get; set; }
 
-        [StringLength(15)]
+        [StringLength(15, MinimumLength = 15 , ErrorMessage = "Il microchip deve contenere 15 caratteri")]
         public string Microchip { get; set; }
 
         [Required]
-        [StringLength(200)]
+        [StringLength(200, ErrorMessage = "Il nome del proprietario non deve essere piu' lungo di 200 caratteri")]
         [Display(Name = "Proprietario")]
         public string Propietario { get; set; } = "Rifugio";
 

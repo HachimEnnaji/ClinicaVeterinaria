@@ -23,5 +23,13 @@ namespace ClinicaVeterinaria.Models
         [Required]
         [StringLength(50)]
         public string Cognome { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string Psw { get; set; }
     }
 }

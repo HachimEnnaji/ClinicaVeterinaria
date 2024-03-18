@@ -12,6 +12,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace ClinicaVeterinaria.Controllers
 {
+    [Authorize(Roles = "Veterinario")]
     public class AnimaleController : Controller
     {
         private ModelDbContext db = new ModelDbContext();
@@ -52,6 +53,14 @@ namespace ClinicaVeterinaria.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!animale.Microchip.IsNullOrWhiteSpace())
+                {
+                    if (db.Animale.Any(a => a.Microchip == animale.Microchip))
+                    {
+                        TempData["error"] = $"Il microchip {animale.Microchip} è già stato registrato";
+                        return View();
+                    }
+                }
                 if (animale.Foto.IsNullOrWhiteSpace())
                 {
                     animale.Foto = "AnimaleDefault.jpg";

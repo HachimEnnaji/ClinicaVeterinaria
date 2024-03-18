@@ -13,7 +13,7 @@ namespace ClinicaVeterinaria.Models
         public int IdVisita { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime DataVisita { get; set; }
+        public DateTime DataVisita { get; set; } = DateTime.Now;
 
         [Required]
         [StringLength(50)]

@@ -20,8 +20,14 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Informazioni", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contatto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Animali", "Index", "Animale", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Visite", "Index", "Visita", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="ms-auto">@Html.ActionLink("Login", "Login", "Dipendenti", new { area = "" }, new { @class = "nav-link" })</li>
+                    } else {
+                        <li class="ms-auto">@Html.ActionLink("Logout", "Logout", "Dipendenti", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -29,6 +35,7 @@
     <div class="container">
         <main role="main" class="pb-3">
             <partial name="_PartialView" />
+            @Html.Partial("_PartialView")
             @RenderBody()
         </main>
     </div>
@@ -39,10 +46,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @{
-         RenderSection("Scripts", required: false);
-         Html.RenderPartial("_ValidationScriptsPartial");
-    }
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>
