@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace ClinicaVeterinaria.Controllers
@@ -145,10 +144,64 @@ namespace ClinicaVeterinaria.Controllers
             }
             base.Dispose(disposing);
         }
-        public async Task<ActionResult> RicoveroAttivo(int month)
+
+        [HttpGet]
+        public JsonResult RicoveroAttivo(int? month)
         {
-            var ricovero = db.Ricovero.Include(r => r.Animale).Where(r => r.DataInizio.Month == month && r.IsAttivo == true);
-            return View(await ricovero.ToListAsync());
+
+            var ricovero = db.Ricovero.Include(r => r.Animale)
+                          .Where(r => r.DataInizio.Month == month && r.IsAttivo == true)
+                          .Select(r => r.Costo)
+                          .DefaultIfEmpty(0)
+                          .Sum();
+            string mese = string.Empty;
+            switch (month)
+            {
+                case 1:
+                    mese = "Gennaio";
+                    break;
+                case 2:
+                    mese = "Febbraio";
+                    break;
+                case 3:
+                    mese = "Marzo";
+                    break;
+                case 4:
+                    mese = "Aprile";
+                    break;
+                case 5:
+                    mese = "Maggio";
+                    break;
+                case 6:
+                    mese = "Giugno";
+                    break;
+                case 7:
+                    mese = "Luglio";
+                    break;
+                case 8:
+                    mese = "Agosto";
+                    break;
+                case 9:
+                    mese = "Settembre";
+                    break;
+                case 10:
+                    mese = "Ottobre";
+                    break;
+                case 11:
+                    mese = "Novembre";
+                    break;
+                case 12:
+                    mese = "Dicembre";
+                    break;
+
+            }
+            if (ricovero == 0)
+            {
+                return Json($"Nessun pagamento per il mese di {mese} ", JsonRequestBehavior.AllowGet);
+            }
+            return Json(ricovero, JsonRequestBehavior.AllowGet);
+
+
         }
     }
 }

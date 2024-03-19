@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "CercaIlTuoAnimale";
+}
+
+<h2>CercaIlTuoAnimale</h2>
+
+<main>
+    <div class="hero">
+        <h1>Welcome to our Veterinary Clinic</h1>
+        <p>Providing quality care for your beloved pets</p>
+    </div>
+    <h3> Hai smarrito qualcuno ?</h3>
+    <input class="form-control" type="text" id="search" placeholder="Cerca il tuo Animale" />
+    <button id="bottone" class="btn btn-primary"> Cerca</button>
+</main>
+
+@section Scripts{
+    <script>
+        
+        const bottone = document.getElementById('bottone');
+        bottone.addEventListener('click', function () {
+            const Microchip = document.getElementById('search').value;
+            console.log(Microchip);
+            fetchAnimale(Microchip);
+        });
+
+function fetchAnimale(Microchip) {
+    fetch("/Home/CercaAnimale?Microchip=" + Microchip)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => console.error("Errore nel reperimento dati: ", error));
+        }
+    </script>
+}
+
+
+

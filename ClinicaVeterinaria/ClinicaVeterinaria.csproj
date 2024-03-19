@@ -140,6 +140,7 @@
     <Compile Include="Models\Animale.cs" />
     <Compile Include="Models\Armadietti.cs" />
     <Compile Include="Models\Cassetti.cs" />
+    <Compile Include="Models\ContenitoreAnimale.cs" />
     <Compile Include="Models\DettagliVendita.cs" />
     <Compile Include="Models\Dipendenti.cs" />
     <Compile Include="Models\EnumAnimali.cs" />
@@ -207,8 +208,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Animale\Create.cshtml" />
     <Content Include="Views\Animale\Delete.cshtml" />
@@ -234,6 +233,7 @@
     <Content Include="Views\Ricovero\Details.cshtml" />
     <Content Include="Views\Ricovero\Edit.cshtml" />
     <Content Include="Views\Ricovero\Index.cshtml" />
+    <Content Include="Views\Home\CercaIlTuoAnimale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
