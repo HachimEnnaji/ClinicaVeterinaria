@@ -1,4 +1,5 @@
 ﻿using ClinicaVeterinaria.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -41,6 +42,8 @@ namespace ClinicaVeterinaria.Controllers
             {
                 //TO DO: migliorare la select list per renderla readonly
                 ViewBag.id_Animale_FK = new SelectList(db.Animale.Where(a => a.IdAnimale == id), "IdAnimale", "Nome");
+                TempData["NomeAnimale"] = db.Animale.Where(a => a.IdAnimale == id).Select(a => a.Nome).FirstOrDefault();
+                TempData["idAnimale"] = id;
             }
             return View();
         }
@@ -52,11 +55,23 @@ namespace ClinicaVeterinaria.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdRicovero,DataInizio,Costo,IsAttivo,id_Animale_FK")] Ricovero ricovero)
         {
+            var idAnimale = Convert.ToInt32(TempData["idAnimale"]);
             if (ModelState.IsValid)
             {
+                var dataNascita = db.Animale.Where(a => a.IdAnimale == idAnimale).Select(Animale => Animale.DataNascita).FirstOrDefault();
+
+
+
+                if (dataNascita > ricovero.DataInizio)
+                {
+                    ricovero.DataInizio = dataNascita;
+                    ricovero.id_Animale_FK = idAnimale;
+                }
                 db.Ricovero.Add(ricovero);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
+
             }
 
             ViewBag.id_Animale_FK = new SelectList(db.Animale, "IdAnimale", "Nome", ricovero.id_Animale_FK);

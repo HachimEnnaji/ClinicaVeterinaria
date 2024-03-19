@@ -5,10 +5,11 @@
 }
 
 <h2>Index</h2>
+@if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+{
+    @Html.ActionLink("Effettua visita", "Create", "Ricovero", new { id = Request.QueryString["id"] }, null)
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -26,26 +27,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Animale.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataInizio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Costo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsAttivo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdRicovero }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdRicovero }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdRicovero })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Animale.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInizio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Costo)
+            </td>
+            <td>
+               @{ if(item.IsAttivo == true)
+                    {
+                        <span>Ricoverato</span>
+                    }
+                    else
+                    {
+                        <span>Non Ricoverato</span>
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdRicovero }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdRicovero }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdRicovero })
+            </td>
+        </tr>
+    }
 
 </table>

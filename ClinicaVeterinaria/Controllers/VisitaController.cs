@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ClinicaVeterinaria.Models;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ClinicaVeterinaria.Models;
 
 namespace ClinicaVeterinaria.Controllers
 {
@@ -17,12 +14,12 @@ namespace ClinicaVeterinaria.Controllers
         // GET: Visita
         public ActionResult Index()
         {
-            
-                var visita = db.Visita.Include(v => v.Animale);
-                return View(visita.ToList());
-            
-            
-            
+
+            var visita = db.Visita.Include(v => v.Animale);
+            return View(visita.ToList());
+
+
+
         }
 
         // GET: Visita/Details/5
@@ -48,16 +45,18 @@ namespace ClinicaVeterinaria.Controllers
                 ViewBag.IdAnimale_Fk = new SelectList(db.Animale, "IdAnimale", "Nome");
                 return View();
             }
-            else if(db.Animale.Any(a => a.IdAnimale == id))
+            else if (db.Animale.Any(a => a.IdAnimale == id))
             {
                 ViewBag.IdAnimale_Fk = new SelectList(db.Animale.Where(a => a.IdAnimale == id), "IdAnimale", "Nome");
                 return View();
-            } else {
+            }
+            else
+            {
                 TempData["error"] = "L'animale selezionato non esiste";
                 return RedirectToAction("Index", "Animale");
             }
         }
-        
+
 
         // POST: Visita/Create
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
@@ -68,9 +67,21 @@ namespace ClinicaVeterinaria.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Visita.Add(visita);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var dataNascita = db.Animale.Where(a => a.IdAnimale == visita.IdAnimale_Fk).Select(Animale => Animale.DataNascita).FirstOrDefault();
+
+
+
+                if (dataNascita > visita.DataVisita)
+                {
+                    TempData["error"] = "La data della visita non può essere antecedente alla data di nascita dell'animale";
+                    return View();
+                }
+                else
+                {
+                    db.Visita.Add(visita);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.IdAnimale_Fk = new SelectList(db.Animale, "IdAnimale", "Nome", visita.IdAnimale_Fk);
@@ -92,8 +103,8 @@ namespace ClinicaVeterinaria.Controllers
             }
         }
 
-            // GET: Visita/Edit/5
-            public ActionResult Edit(int? id)
+        // GET: Visita/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
