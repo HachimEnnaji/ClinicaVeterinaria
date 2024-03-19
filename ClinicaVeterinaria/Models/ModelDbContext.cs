@@ -1,7 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
 
 namespace ClinicaVeterinaria.Models
 {
@@ -10,6 +7,8 @@ namespace ClinicaVeterinaria.Models
         public ModelDbContext()
             : base("name=ModelDbContext")
         {
+            this.Configuration.ProxyCreationEnabled = false;
+
         }
 
         public virtual DbSet<Animale> Animale { get; set; }

@@ -1,30 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ClinicaVeterinaria.Models;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace ClinicaVeterinaria.Controllers
 {
     public class HomeController : Controller
     {
+        private ModelDbContext db = new ModelDbContext();
+
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult About()
+        public ActionResult CercaIlTuoAnimale()
         {
-            ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpGet]
+        public async Task<ActionResult> CercaAnimale(string Microchip)
         {
-            ViewBag.Message = "Your contact page.";
+            //prendimi l'animale con il microchip uguale a quello che mi hai passato e includi le proprieta di navigazione di tipo Ricovero e Visita
+            var search = await db.Animale.Where(a => a.Microchip == Microchip && a.Propietario == "rifugio").FirstOrDefaultAsync();
 
-            return View();
+            System.Diagnostics.Debug.WriteLine(search);
+
+            return Json(search, JsonRequestBehavior.AllowGet);
+
         }
+
+
     }
 }
