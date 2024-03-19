@@ -18,3 +18,36 @@ select,
 textarea {
     max-width: 280px;
 }
+body{
+    height:100vh;
+}
+
+.bgVet {
+    background: rgb(85,123,131);
+    background: linear-gradient(0deg, rgba(85,123,131,1) 80%, rgba(33,70,78,1) 100%);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.navVet{
+    background-color: #21464e;
+}
+.positionCeter{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.hoverable{
+    transition: all 0.3s;
+}
+.hoverable:hover {
+        transform: scale(1.5);
+        transition: all 0.3s;
+}
+
+.subtleBg{
+    background-color: #ffffffaa;
+}
