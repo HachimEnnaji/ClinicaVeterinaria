@@ -12,25 +12,56 @@
     <h3> Hai smarrito qualcuno ?</h3>
     <input class="form-control" type="text" id="search" placeholder="Cerca il tuo Animale" />
     <button id="bottone" class="btn btn-primary"> Cerca</button>
+    <div id="result" class="d-none">
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img id="immagine" src="" class="img-fluid rounded-start" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 id="nome" class="card-title"></h5>
+                        <p id="colore" class="card-text"></p>
+                        <p class="card-text"><small id="micro" class="text-body-secondary"></small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 @section Scripts{
     <script>
-        
+
         const bottone = document.getElementById('bottone');
         bottone.addEventListener('click', function () {
             const Microchip = document.getElementById('search').value;
             console.log(Microchip);
             fetchAnimale(Microchip);
+
         });
 
-function fetchAnimale(Microchip) {
-    fetch("/Home/CercaAnimale?Microchip=" + Microchip)
+        function fetchAnimale(Microchip) {
+            const path = "/Content/img/";
+            fetch("/Home/CercaAnimale?Microchip=" + Microchip)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    const div = document.getElementById('result');
+
+                    const immagine = document.getElementById('immagine');
+                    immagine.src = path + data.Foto;
+                    immagine.alt = data.Nome;
+                    const nome = document.getElementById('nome');
+                    nome.textContent ="Nome: " + data.Nome;
+                    const colore = document.getElementById('colore');
+                    colore.textContent ="Colore: " + data.Colore;
+                    const micro = document.getElementById('micro');
+                    micro.textContent ="N Microchip: " + data.Microchip;
+                    div.classList.remove('d-none');
                 })
                 .catch(error => console.error("Errore nel reperimento dati: ", error));
+            
         }
     </script>
 }
