@@ -33,6 +33,7 @@ namespace ClinicaVeterinaria.Models
 
         public int Quantita { get; set; }
 
+        public decimal Prezzo { get; set; }
         public int Id_Armadietto_FK { get; set; }
 
         public int Id_Cassetto_FK { get; set; }

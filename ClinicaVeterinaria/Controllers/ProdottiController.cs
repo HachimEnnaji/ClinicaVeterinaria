@@ -50,7 +50,7 @@ namespace ClinicaVeterinaria.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProdotto,Tipo,Nome,IdFornitore_FK,Descrizione,Quantita,Id_Armadietto_FK,Id_Cassetto_FK")] Prodotti prodotti)
+        public ActionResult Create([Bind(Include = "IdProdotto,Tipo,Nome,IdFornitore_FK,Descrizione,Quantita,Prezzo,Id_Armadietto_FK,Id_Cassetto_FK")] Prodotti prodotti)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace ClinicaVeterinaria.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProdotto,Tipo,Nome,IdFornitore_FK,Descrizione,Quantita,Id_Armadietto_FK,Id_Cassetto_FK")] Prodotti prodotti)
+        public ActionResult Edit([Bind(Include = "IdProdotto,Tipo,Nome,IdFornitore_FK,Descrizione,Quantita,Prezzo,Id_Armadietto_FK,Id_Cassetto_FK")] Prodotti prodotti)
         {
             if (ModelState.IsValid)
             {

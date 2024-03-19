@@ -20,5 +20,16 @@ namespace ClinicaVeterinaria.Controllers
             }
             return View(ListaCarrello);
         }
+
+        public ActionResult Rimuovi(int id)
+        {
+            var ListaCarrello = Session["CarrelloSession"] as List<Prodotti>;
+            if(ListaCarrello != null)
+            {
+                var prodotto = ListaCarrello.FirstOrDefault(l => l.IdProdotto == id);
+                ListaCarrello.Remove(prodotto);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
