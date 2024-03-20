@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ClinicaVeterinaria.Models;
@@ -122,6 +123,12 @@ namespace ClinicaVeterinaria.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpGet]
+        public async Task<ActionResult> CercaMedicinaliPerData(DateTime DataVendita)
+        {
+            var search = await db.DettagliVendita.Include(n => n.Vendite).Include(p => p.Prodotti).Where(l => l.Equals(DataVendita));
+            return Json(search, JsonRequestBehavior.AllowGet);
         }
     }
 }
