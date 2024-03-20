@@ -190,6 +190,9 @@
     <Content Include="Content\img\tartaruga.png" />
     <Content Include="Content\img\uccello.png" />
     <Content Include="Content\img\vetHome1.jpeg" />
+    <Content Include="Content\img\vetHome2.jpg" />
+    <Content Include="Content\img\vetHome3.jpg" />
+    <Content Include="Content\img\vetHome4.jpg" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />

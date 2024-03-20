@@ -4,48 +4,50 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="subtleBg px-3 py-4 mt-4 rounded-3 fs-5">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Proprietario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CodFiscale)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumRicetta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataVendita)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Proprietario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CodFiscale)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumRicetta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataVendita)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdVendita }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdVendita }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdVendita })
-        </td>
-    </tr>
-}
+    <h2>Lista vendite</h2>
 
-</table>
+
+    <table class="table table-striped-columns">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Proprietario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodFiscale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumRicetta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataVendita)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proprietario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CodFiscale)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumRicetta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataVendita)
+                </td>
+                <td>
+                    
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IdVendita }, new {@class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

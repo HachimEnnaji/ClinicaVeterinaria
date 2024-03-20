@@ -3,11 +3,10 @@
 @{
     ViewBag.Title = "Details";
 }
+<div class="subtleBg px-3 py-4 mt-4 rounded-3 fs-5">
+    <h2>Details</h2>
 
-<h2>Details</h2>
 
-<div>
-    <h4>Animale</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -75,8 +74,12 @@
         </dd>
 
     </dl>
+
+    <p>
+        @Html.ActionLink("Modifica", "Edit", new { id = Model.IdAnimale }, new { @class = "btn btn-success" })
+
+    </p>
+    <div class="text-end mt-4">
+        @Html.ActionLink("Torna indietro", "Index", new { }, new { @class = "btn btn-warning" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdAnimale }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
