@@ -59,7 +59,8 @@ namespace ClinicaVeterinaria.Controllers
                 }
                 if (animale.Foto.IsNullOrWhiteSpace())
                 {
-                    animale.Foto = "AnimaleDefault.jpg";
+                    var foto = setPhoto(animale.Tipo);
+                    animale.Foto = foto;
                 }
                 if (animale.Propietario.IsNullOrWhiteSpace())
                 {
@@ -67,7 +68,7 @@ namespace ClinicaVeterinaria.Controllers
                 }
                 if (animale.DataNascita < DateTime.Now)
                 {
-                    TempData["success"] = $"{animale.Nome} aggiunto con successo";
+                    TempData["message"] = "aggiunto con successo";
                     db.Animale.Add(animale);
                     db.SaveChanges();
                     if (animale.Propietario == "rifugio")
@@ -152,6 +153,31 @@ namespace ClinicaVeterinaria.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public string setPhoto(string tipo)
+        {
+            switch (tipo)
+            {
+                case "Cane":
+                    return "cane.png";
+                case "Gatto":
+                    return "gatto.png";
+                case "Coniglio":
+                    return "coniglio.png";
+                case "Pappagallo":
+                    return "pappagallo.png";
+                case "Tartaruga":
+                    return "tartaruga.png";
+                case "Roditore":
+                    return "roditore.png";
+                case "Uccello":
+                    return "uccello.png";
+                case "Serpente":
+                    return "serpente.png";
+
+                default: return "animaleDefault.png";
+            }
         }
     }
 }

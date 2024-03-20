@@ -25,7 +25,9 @@
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="ms-auto">@Html.ActionLink("Login", "Login", "Dipendenti", new { area = "" }, new { @class = "nav-link" })</li>
-                    } else {
+                    }
+                    else
+                    {
                         <li class="ms-auto">@Html.ActionLink("Logout", "Logout", "Dipendenti", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
@@ -34,8 +36,7 @@
     </nav>
     <div class="container">
         <main role="main" class="pb-3">
-            <partial name="_PartialView" />
-            @Html.Partial("_PartialView")
+           
             @RenderBody()
         </main>
     </div>

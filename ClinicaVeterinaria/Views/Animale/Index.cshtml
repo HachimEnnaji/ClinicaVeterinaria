@@ -3,6 +3,13 @@
 @{
     ViewBag.Title = "Index";
 }
+
+<script src="/lib/jquery//dist/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script type="text/javascript">
+    toastr.success('@TempData["message"]');
+</script>
+
 <div class="subtleBg px-3 py-4 mt-4 rounded-3 fs-5">
     <div class="d-flex align-items-center">
         <h2 class="display-4 me-4">Lista animali</h2>
