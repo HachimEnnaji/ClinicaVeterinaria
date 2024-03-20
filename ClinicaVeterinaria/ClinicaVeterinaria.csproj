@@ -255,11 +255,6 @@
     <Content Include="Views\Fornitori\Details.cshtml" />
     <Content Include="Views\Fornitori\Edit.cshtml" />
     <Content Include="Views\Fornitori\Index.cshtml" />
-    <Content Include="Views\Prodotti\Create.cshtml" />
-    <Content Include="Views\Prodotti\Delete.cshtml" />
-    <Content Include="Views\Prodotti\Details.cshtml" />
-    <Content Include="Views\Prodotti\Edit.cshtml" />
-    <Content Include="Views\Prodotti\Index.cshtml" />
     <Content Include="Views\Cassetti\Create.cshtml" />
     <Content Include="Views\Cassetti\Delete.cshtml" />
     <Content Include="Views\Cassetti\Details.cshtml" />
@@ -281,6 +276,11 @@
     <Content Include="Views\DettagliVendita\Edit.cshtml" />
     <Content Include="Views\DettagliVendita\Index.cshtml" />
     <Content Include="Views\Carrello\Index.cshtml" />
+    <Content Include="Views\Prodotti\Create.cshtml" />
+    <Content Include="Views\Prodotti\Delete.cshtml" />
+    <Content Include="Views\Prodotti\Details.cshtml" />
+    <Content Include="Views\Prodotti\Edit.cshtml" />
+    <Content Include="Views\Prodotti\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

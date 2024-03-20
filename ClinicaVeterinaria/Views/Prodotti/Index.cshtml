@@ -32,6 +32,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Quantita)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </th>
         <th></th>
     </tr>
 
@@ -59,10 +62,14 @@
             @Html.DisplayFor(modelItem => item.Quantita)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IdProdotto }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IdProdotto }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdProdotto }) |
+            @Html.DisplayFor(modelItem => item.Prezzo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdProdotto }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdProdotto }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdProdotto }) |
             @Html.ActionLink("Aggiungi al carrello", "AggiungiAlCarrello", new { id = item.IdProdotto })
+
         </td>
     </tr>
 }
