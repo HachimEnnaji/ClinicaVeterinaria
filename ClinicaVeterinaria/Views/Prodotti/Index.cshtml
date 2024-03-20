@@ -38,40 +38,104 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Armadietti.IdArmadietto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cassetti.IdCassetto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fornitori.Recapito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descrizione)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantita)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prezzo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdProdotto }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdProdotto }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdProdotto }) |
-            @Html.ActionLink("Aggiungi al carrello", "AggiungiAlCarrello", new { id = item.IdProdotto })
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Armadietti.IdArmadietto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cassetti.IdCassetto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fornitori.Recapito)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descrizione)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantita)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prezzo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdProdotto }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdProdotto }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdProdotto }) |
+                @Html.ActionLink("Aggiungi al carrello", "AggiungiAlCarrello", new { id = item.IdProdotto })
 
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+
+<main>
+    <h3> Cerca il tuo prodotto </h3>
+    <input class="form-control" type="text" id="search" placeholder="Cerca Prodotto" />
+    <button id="bottone" class="btn btn-primary"> Cerca</button>
+    <div id="result" class="d-none">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img id="immagine" src="~/Content/img/medicinaDefault.png" class="img-fluid rounded-start" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 id="nome" class="card-title"></h5>
+                        <p id="armadietto"></p>
+                        <p id="cassetto"></p>
+                        <p id="quantita"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts{
+    <script>
+
+        const bottone = document.getElementById('bottone');
+        bottone.addEventListener('click', function () {
+            const Prodotto = document.getElementById('search').value;
+            fetchProdotto(Prodotto);
+            Prodotto = "";
+        });
+
+        function fetchProdotto(Prodotto) {
+            const path = "/Content/img/";
+            fetch("/Prodotti/CercaProdotto?Nome=" + Prodotto)
+                .then(response => response.json())
+                .then(data => {
+                    const div = document.getElementById('result');
+                    const nome = document.getElementById('nome');
+                    nome.textContent ="Nome: " + data.Nome;
+                    const armadietto = document.getElementById('armadietto');
+                    armadietto.textContent = "Armadietto: " + data.Id_Armadietto_FK;
+                    const cassetto = document.getElementById('cassetto');
+                    cassetto.textContent = "Cassetto: " + data.Id_Cassetto_FK;
+                    const quantita = document.getElementById('quantita')
+                    quantita.textContent = "Quantità: " + data.Quantita
+                    div.classList.remove('d-none');
+                })
+                .catch(error => console.error("Errore nel reperimento dati: ", error));
+
+        }
+    </script>
+}
+
+
+
+
+
+

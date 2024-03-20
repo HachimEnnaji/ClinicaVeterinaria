@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ClinicaVeterinaria.Models;
@@ -148,6 +149,13 @@ namespace ClinicaVeterinaria.Controllers
             ListaCarrello.Add(prodotto);
             Session["CarrelloSession"] = ListaCarrello;
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<ActionResult> CercaProdotto(string Nome)
+        {
+            var search = await db.Prodotti.Where(p=>p.Nome == Nome).FirstOrDefaultAsync();
+            return Json(search, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

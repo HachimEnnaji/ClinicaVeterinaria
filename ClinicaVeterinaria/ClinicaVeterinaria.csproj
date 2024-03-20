@@ -183,6 +183,7 @@
     <Content Include="Content\img\coniglio.png" />
     <Content Include="Content\img\gatto.png" />
     <Content Include="Content\img\homeVet.png" />
+    <Content Include="Content\img\medicinaDefault.png" />
     <Content Include="Content\img\pappagallo.png" />
     <Content Include="Content\img\roditore.png" />
     <Content Include="Content\img\serpente.png" />

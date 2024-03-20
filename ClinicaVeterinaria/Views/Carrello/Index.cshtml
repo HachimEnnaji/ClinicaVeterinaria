@@ -42,9 +42,7 @@
             @Html.DisplayFor(modelItem => item.Prezzo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.IdProdotto }) |
-            @Html.ActionLink("Details", "Details", new { id = item.IdProdotto }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.IdProdotto })
+            @Html.ActionLink("Cancella", "Rimuovi", new { id = item.IdProdotto })
         </td>
     </tr>
 }
@@ -52,3 +50,21 @@
 </table>
 
 <p>Totale ordine: &euro;@Model.Sum(item => item.Prezzo) </p>
+@using (Html.BeginForm("Acquista", "Carrello", FormMethod.Post))
+            {
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-text">Proprietario</span>
+                        <textarea id="Proprietario" name="Proprietario" required class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Codice Fiscale</span>
+                        <textarea id="CodFiscale" name="CodFiscale" required class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Numero Ricetta</span>
+                        <textarea id="NumRicetta" name="NumRicetta" required class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+                    <input class="btn btn-primary mt-4" type="submit" value="Conferma ordine" />
+                </div>
+            }
