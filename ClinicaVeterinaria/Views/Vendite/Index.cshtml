@@ -70,7 +70,7 @@
             <div id="resultCF" class="card mb-3 subtleBg d-none" style="max-width: 540px;">
             </div>
 
-    </div>
+        </div>
 </main>
 
 @section Scripts{
@@ -92,14 +92,14 @@
                         const asincrona = document.createElement('div');
                         asincrona.innerHTML =
                             `<div class="card mb-3" style="max-width: 540px;">
-                                                    <div class="d-flex">
-                                                    <div class="card-body">
-                                                    <h5 class="card-title">Nome: ${e.Nome}</h5>
-                                                    <p>Cliente: ${e.Proprietario}</p>
-                                                    <p>Codice Fiscale: ${e.CodFiscale}</p>
+                                                        <div class="d-flex">
+                                                        <div class="card-body">
+                                                        <h5 class="card-title">Nome: ${e.Nome}</h5>
+                                                        <p>Cliente: ${e.Proprietario}</p>
+                                                        <p>Codice Fiscale: ${e.CodFiscale}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>`;
+                                            </div>`;
                         div.appendChild(asincrona);
                     });
                     div.classList.remove('d-none');
@@ -121,11 +121,11 @@
                     const div = document.getElementById('resultCF');
                     const asincrona = document.createElement('div');
                     asincrona.innerHTML = ` <div class="d-flex">
-                                                <div class="card-body">
-                                                 <h5 class="card-title">Cliente: ${data[0].Proprietario}</h5>
-                                                   <p>CF: ${data[0].CodFiscale}</p>
-                                                 </div>
-                                             </div> `
+                                                    <div class="card-body">
+                                                     <h5 class="card-title">Cliente: ${data[0].Proprietario}</h5>
+                                                       <p>CF: ${data[0].CodFiscale}</p>
+                                                     </div>
+                                                 </div> `
 
                     data.forEach(e => {
                         const jsonDate = e.DataVendita;
@@ -134,7 +134,7 @@
                         date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
                         asincrona.innerHTML +=
                             `<h5 class="card-title">Nome: ${e.Nome}</h5>
-                             <p>Data: ${date}</p>`;
+                                 <p>Data: ${date}</p>`;
                         asincrona.classList.add('ms-4');
                         div.appendChild(asincrona);
                     });

@@ -59,10 +59,13 @@ namespace ClinicaVeterinaria.Controllers
             return View(dipendenti);
         }
 
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
         }
+        [AllowAnonymous]
+
         [HttpPost]
         public ActionResult Login(string username, string psw)
         {
