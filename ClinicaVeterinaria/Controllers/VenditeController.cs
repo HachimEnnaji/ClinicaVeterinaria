@@ -127,7 +127,13 @@ namespace ClinicaVeterinaria.Controllers
         [HttpGet]
         public async Task<ActionResult> CercaMedicinaliPerData(DateTime DataVendita)
         {
-            var search = await db.DettagliVendita.Include(n => n.Vendite).Include(p => p.Prodotti).Where(l => l.Equals(DataVendita));
+            var search = await db.DettagliVendita
+                .Include(n => n.Vendite)
+                .Include(p => p.Prodotti)
+                .Where(l => l.Vendite.DataVendita == DataVendita)
+                .Select(l => new { l.Prodotti.Nome, l.Vendite.Proprietario, l.Vendite.CodFiscale, l.Vendite.DataVendita })
+                .ToListAsync();
+
             return Json(search, JsonRequestBehavior.AllowGet);
         }
     }
