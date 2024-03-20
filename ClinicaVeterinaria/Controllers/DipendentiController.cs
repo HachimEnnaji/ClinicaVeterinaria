@@ -7,7 +7,7 @@ using System.Web.Security;
 
 namespace ClinicaVeterinaria.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class DipendentiController : Controller
     {
         private ModelDbContext db = new ModelDbContext();

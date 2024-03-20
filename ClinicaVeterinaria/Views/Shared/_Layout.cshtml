@@ -20,8 +20,21 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Animali", "Index", "Animale", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Visite", "Index", "Visita", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (User.IsInRole("Veterinario") || User.IsInRole("Admin"))
+                    {
+
+                        <li>@Html.ActionLink("Animali", "Index", "Animale", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Visite", "Index", "Visita", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (User.IsInRole("Farmacista") || User.IsInRole("Admin"))
+                    {
+
+                        <li>@Html.ActionLink("Prodotti", "Index", "Prodotti", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Vendite", "Index", "Vendite", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="ms-auto">@Html.ActionLink("Carrello", "Index", "Carrello", new { area = "" }, new { @class = "nav-link " })</li>
+
+                    }
+
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="ms-auto">@Html.ActionLink("Login", "Login", "Dipendenti", new { area = "" }, new { @class = "nav-link" })</li>
@@ -29,6 +42,10 @@
                     else
                     {
                         <li class="ms-auto">@Html.ActionLink("Logout", "Logout", "Dipendenti", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Gestione Dipendenti", "Index", "Dipendenti", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
             </div>

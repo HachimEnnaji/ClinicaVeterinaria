@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using ClinicaVeterinaria.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ClinicaVeterinaria.Models;
 
 namespace ClinicaVeterinaria.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FornitoriController : Controller
     {
         private ModelDbContext db = new ModelDbContext();

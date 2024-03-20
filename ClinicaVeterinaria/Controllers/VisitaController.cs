@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ClinicaVeterinaria.Controllers
 {
+    [Authorize(Roles = "Admin, Veterinario")]
     public class VisitaController : Controller
     {
         private ModelDbContext db = new ModelDbContext();

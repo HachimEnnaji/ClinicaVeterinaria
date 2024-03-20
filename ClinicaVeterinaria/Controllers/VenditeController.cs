@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ClinicaVeterinaria.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using ClinicaVeterinaria.Models;
 
 namespace ClinicaVeterinaria.Controllers
 {
+
     public class VenditeController : Controller
     {
         private ModelDbContext db = new ModelDbContext();
@@ -131,6 +130,19 @@ namespace ClinicaVeterinaria.Controllers
                 .Include(n => n.Vendite)
                 .Include(p => p.Prodotti)
                 .Where(l => l.Vendite.DataVendita == DataVendita)
+                .Select(l => new { l.Prodotti.Nome, l.Vendite.Proprietario, l.Vendite.CodFiscale, l.Vendite.DataVendita })
+                .ToListAsync();
+
+            return Json(search, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> CercaMedicinaliPerCodiceFiscale(string CodFiscale)
+        {
+            var search = await db.DettagliVendita
+                .Include(n => n.Vendite)
+                .Include(p => p.Prodotti)
+                .Where(l => l.Vendite.CodFiscale == CodFiscale)
                 .Select(l => new { l.Prodotti.Nome, l.Vendite.Proprietario, l.Vendite.CodFiscale, l.Vendite.DataVendita })
                 .ToListAsync();
 
