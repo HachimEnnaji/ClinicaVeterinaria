@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -56,22 +57,27 @@ namespace ClinicaVeterinaria.Controllers
         public ActionResult Create([Bind(Include = "IdRicovero,DataInizio,Costo,IsAttivo,id_Animale_FK")] Ricovero ricovero)
         {
             var idAnimale = Convert.ToInt32(TempData["idAnimale"]);
+            Debug.WriteLine("idAnimale: " + idAnimale);
             if (ModelState.IsValid)
             {
-                var dataNascita = db.Animale.Where(a => a.IdAnimale == idAnimale).Select(Animale => Animale.DataNascita).FirstOrDefault();
+                var animale = db.Animale.FirstOrDefault(a => a.IdAnimale == idAnimale);
+                if (animale == null)
+                {
+                    // L'animale con l'ID specificato non esiste.
+                    // Puoi gestire questo caso come preferisci, ad esempio reindirizzando a una pagina di errore o restituendo un messaggio di errore.
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "L'animale specificato non esiste.");
+                }
 
-
-
+                var dataNascita = animale.DataNascita;
                 if (dataNascita > ricovero.DataInizio)
                 {
                     ricovero.DataInizio = dataNascita;
-                    ricovero.id_Animale_FK = idAnimale;
+                    
                 }
+                ricovero.id_Animale_FK = idAnimale;
                 db.Ricovero.Add(ricovero);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-
-
             }
 
             ViewBag.id_Animale_FK = new SelectList(db.Animale, "IdAnimale", "Nome", ricovero.id_Animale_FK);
