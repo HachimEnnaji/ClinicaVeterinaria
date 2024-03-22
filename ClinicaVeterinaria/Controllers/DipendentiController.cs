@@ -59,6 +59,21 @@ namespace ClinicaVeterinaria.Controllers
             return View(dipendenti);
         }
 
+        // GET: Dipendenti/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Dipendenti dipendenti = db.Dipendenti.Find(id);
+            if (dipendenti == null)
+            {
+                return HttpNotFound();
+            }
+            return View(dipendenti);
+        }
+
         [AllowAnonymous]
         public ActionResult Login()
         {
