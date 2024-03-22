@@ -2,8 +2,10 @@
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ClinicaVeterinaria.Controllers
@@ -45,7 +47,7 @@ namespace ClinicaVeterinaria.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAnimale,DataRegistrazione,Nome,Tipo,Colore,DataNascita,Microchip,Propietario,Foto")] Animale animale)
+        public ActionResult Create([Bind(Include = "IdAnimale,DataRegistrazione,Nome,Tipo,Colore,DataNascita,Microchip,Propietario,Foto")] Animale animale, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -57,8 +59,13 @@ namespace ClinicaVeterinaria.Controllers
                         return View();
                     }
                 }
-                if (animale.Foto.IsNullOrWhiteSpace())
+                if (file != null && file.ContentLength > 0)
                 {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/img"), fileName);
+                    file.SaveAs(path);
+                    animale.Foto = fileName;
+                } else {
                     var foto = setPhoto(animale.Tipo);
                     animale.Foto = foto;
                 }
